@@ -2,9 +2,10 @@ import User from "../models/User.js";
 //import { usernameRegistro, usernameOlvidePassword } from "../helpers/username.js";
 
 const registrar = async (req, res) => {
-	const { username } = req.body;
-	const isRegistered = await User.findOne({ username });
-
+	const user = req.body;
+	console.log(user);
+	const isRegistered = await User.findOne({ username: user.username});
+	console.log(isRegistered);
 	if (isRegistered) {
 		const error = new Error("User is signed up already");
 		return res.status(400).json({ msg: error.message });
@@ -13,36 +14,44 @@ const registrar = async (req, res) => {
 	try {
 		const user = new User(req.body);
 		await user.save();
-		res.json({
-			msg: "user Creado Correctamente, Revisa tu username para confirmar tu cuenta",
+		res.status(201).json({
+			msg: "User created successfully. Please check your email to confirm your account.",
 		});
 	} catch (error) {
-		console.log(error);
+		console.error(error);
+		res.status(500).json({ msg: "Server error" });
 	}
 };
 
 const autenticar = async (req, res) => {
 	const { username, password } = req.body;
 
-	// Comprobar si el user existe
-	const user = await User.findOne({ username });
-	if (!user) {
-		console.log("user no existe");
-		const error = new Error("El user no existe");
-		return res.status(404).json({ msg: error.message });
+	try{
+		// Comprobar si el user existe
+		const user = await User.findOne({ username });
+		if (!user) {
+			console.log("user no existe");
+			const error = new Error("El user no existe");
+			return res.status(404).json({ msg: error.message });
+		}
+
+		if (user.password != password) {
+			const error = new Error("El password es incorrecto");
+				return res.status(401).json({ msg: error.message });
+
+		} 
+		res.status(200).json({
+			msg: "Usuario autenticado correctamente",
+			username: user.username,
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ msg: "Server error" });
 	}
 
-	if (user.password === password) {
-		console.log("user autenticado");
-		res.json({
-			username: user.username,
-			password: user.password,
-		});
-	} else {
-		console.log("Password Incorrecto");
-		const error = new Error("El Password es Incorrecto");
-		return res.json({ msg: error.message });
-	}
+
+	
+
 };
 
 // const confirmar = async (req, res) => {

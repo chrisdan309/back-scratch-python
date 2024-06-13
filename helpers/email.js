@@ -17,9 +17,9 @@ export const emailRegistro = async (datos) => {
   const info = await transport.sendMail({
     from: '"UpTask - Administrador de Proyectos" <cuentas@uptask.com>',
     to: email,
-    subject: "UpTask - Comprueba tu cuenta",
-    text: "Comprueba tu cuenta en UpTask",
-    html: `<p>Hola: ${nombre} Comprueba tu cuenta en UpTask</p>
+    subject: "Scratch-Python - Comprueba tu cuenta",
+    text: "Comprueba tu cuenta de Scratch-Python",
+    html: `<p>Hola: ${nombre} Comprueba tu cuenta en Scratch-Python</p>
     <p>Tu cuenta ya esta casi lista, solo debes comprobarla en el siguiente enlace: 
 
     <a href="${process.env.FRONTEND_URL}/confirmar/${token}">Comprobar Cuenta</a>
