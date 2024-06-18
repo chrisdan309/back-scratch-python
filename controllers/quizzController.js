@@ -31,4 +31,16 @@ const getQuizzes = async (req, res) => {
     }
 };
 
-export { createQuizz, deleteQuizz, getQuizzes };
+const getQuizzById = async (req, res) => {
+    try {
+        const quizz = await Quizz.findById(req.params.id.trim()); // Limpiar el ID
+        if (!quizz) {
+            return res.status(404).json({ message: 'Quiz not found' });
+        }
+        res.status(200).json(quizz);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+export { createQuizz, deleteQuizz, getQuizzById, getQuizzes };
