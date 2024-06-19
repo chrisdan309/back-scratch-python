@@ -1,9 +1,9 @@
-import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
 import conectarDB from "./config/db.js";
+import quizzRoutes from "./routes/quizzRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-
 
 const app = express();
 
@@ -35,6 +35,7 @@ app.use(cors(corsOptions));
 
 // Routing
 app.use("/api/user", userRoutes);
+app.use("/api/quizz", quizzRoutes);
 
 const PORT = process.env.PORT || 4000;
 const servidor = app.listen(PORT, () => {
