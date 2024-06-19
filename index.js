@@ -13,18 +13,22 @@ dotenv.config();
 conectarDB();
 
 // Configurar CORS
-const whitelist = [process.env.FRONTEND_URL];
+// const whitelist = [process.env.FRONTEND_URL];
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (!origin || whitelist.includes(origin)) {
+//       // Puede consultar la API
+//       callback(null, true);
+//     } else {
+//       console.log("ERROR1")
+//       callback(new Error("Error de Cors"));
+//     }
+//   },
+// };
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.includes(origin)) {
-      // Puede consultar la API
-      callback(null, true);
-    } else {
-      console.log("ERROR1")
-      callback(new Error("Error de Cors"));
-    }
-  },
+  origin: '*',
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -43,7 +47,12 @@ import { Server } from "socket.io";
 const io = new Server(servidor, {
   pingTimeout: 60000,
   cors: {
-    origin: process.env.FRONTEND_URL,
+    origin: '*',
+    credentials: true,
   },
+});
+
+io.on("connection", (socket) => {
+  console.log("Nuevo cliente conectado");
 });
 
