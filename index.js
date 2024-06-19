@@ -4,6 +4,7 @@ import express from "express";
 import conectarDB from "./config/db.js";
 import quizzRoutes from "./routes/quizzRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import openaiRoutes from './routes/openaiRoutes.js';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(cors(corsOptions));
 // Routing
 app.use("/api/user", userRoutes);
 app.use("/api/quizz", quizzRoutes);
+app.use('/api/openai', openaiRoutes);
 
 const PORT = process.env.PORT || 4000;
 const servidor = app.listen(PORT, () => {
