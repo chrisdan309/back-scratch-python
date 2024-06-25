@@ -6,6 +6,9 @@ import gameSessionRoutes from "./routes/gameSessionRoutes.js";
 import openaiRoutes from './routes/openaiRoutes.js';
 import quizzRoutes from "./routes/quizzRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js";
+import unitRoutes from "./routes/unitRoutes.js";
+
 const app = express();
 
 app.use(express.json());
@@ -39,6 +42,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/quizz", quizzRoutes);
 app.use('/api/openai', openaiRoutes);
 app.use("/api/gamesession", gameSessionRoutes);  
+app.use("/api/course", courseRoutes);  
+app.use("/api/unit", unitRoutes);  
 
 const PORT = process.env.PORT || 4000;
 const servidor = app.listen(PORT, () => {

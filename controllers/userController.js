@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-//import { usernameRegistro, usernameOlvidePassword } from "../helpers/username.js";
 
 const registrar = async (req, res) => {
 	const user = req.body;
@@ -53,89 +52,6 @@ const autenticar = async (req, res) => {
 	
 
 };
-
-// const confirmar = async (req, res) => {
-// 	const { token } = req.params;
-// 	const userConfirmar = await user.findOne({ token });
-// 	if (!userConfirmar) {
-// 		const error = new Error("Token no válido");
-// 		return res.status(403).json({ msg: error.message });
-// 	}
-
-// 	try {
-// 		userConfirmar.confirmado = true;
-// 		userConfirmar.token = "";
-// 		await userConfirmar.save();
-// 		res.json({ msg: "user Confirmado Correctamente" });
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
-
-// const olvidePassword = async (req, res) => {
-// 	const { username } = req.body;
-// 	const user = await user.findOne({ username });
-// 	if (!user) {
-// 		const error = new Error("El user no existe");
-// 		return res.status(404).json({ msg: error.message });
-// 	}
-
-// 	try {
-// 		user.token = generarId();
-// 		await user.save();
-
-// 		// Enviar el username
-// 		usernameOlvidePassword({
-// 			username: user.username,
-// 			nombre: user.nombre,
-// 			token: user.token,
-// 		});
-
-// 		res.json({ msg: "Hemos enviado un username con las instrucciones" });
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
-
-// const comprobarToken = async (req, res) => {
-// 	const { token } = req.params;
-
-// 	const tokenValido = await user.findOne({ token });
-
-// 	if (tokenValido) {
-// 		res.json({ msg: "Token válido y el user existe" });
-// 	} else {
-// 		const error = new Error("Token no válido");
-// 		return res.status(404).json({ msg: error.message });
-// 	}
-// };
-
-// const nuevoPassword = async (req, res) => {
-// 	const { token } = req.params;
-// 	const { password } = req.body;
-
-// 	const user = await user.findOne({ token });
-
-// 	if (user) {
-// 		user.password = password;
-// 		user.token = "";
-// 		try {
-// 			await user.save();
-// 			res.json({ msg: "Password Modificado Correctamente" });
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	} else {
-// 		const error = new Error("Token no válido");
-// 		return res.status(404).json({ msg: error.message });
-// 	}
-// };
-
-// const perfil = async (req, res) => {
-// 	const { user } = req;
-
-// 	res.json(user);
-// };
 
 export {
 	registrar,
