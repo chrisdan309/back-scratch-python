@@ -2,10 +2,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import conectarDB from "./config/db.js";
+import gameSessionRoutes from "./routes/gameSessionRoutes.js";
+import openaiRoutes from './routes/openaiRoutes.js';
 import quizzRoutes from "./routes/quizzRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import openaiRoutes from './routes/openaiRoutes.js';
-
 const app = express();
 
 app.use(express.json());
@@ -38,6 +38,7 @@ app.use(cors(corsOptions));
 app.use("/api/user", userRoutes);
 app.use("/api/quizz", quizzRoutes);
 app.use('/api/openai', openaiRoutes);
+app.use("/api/gamesession", gameSessionRoutes);  
 
 const PORT = process.env.PORT || 4000;
 const servidor = app.listen(PORT, () => {
